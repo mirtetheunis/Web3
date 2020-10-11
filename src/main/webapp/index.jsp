@@ -43,7 +43,7 @@
                     </div>
                 </c:if>
                 <form action="Controller?command=Login" method="POST">
-                    <p><label for="userId">Your e-mail</label><input type="text" id="userId" name="userId"
+                    <p><label for="userId">Your userID</label><input type="text" id="userId" name="userId"
                                                                      value="${userIdPrevious}" required></p>
                     <p><label for="password">Your password</label><input type="password" id="password"
                                                                          name="password" required></p>

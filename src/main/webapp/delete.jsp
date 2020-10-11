@@ -23,7 +23,7 @@
 
         <main>
             <form action="Controller?command=Delete" method="POST">
-                <p><label for="userId">E-mail</label><input type="text" id="userId" name="userId" required></p>
+                <p><label for="userId">UserID</label><input type="text" id="userId" name="userId" required></p>
                 <p><input type="submit" id="delete" value="Delete"></p>
             </form>
         </main>
