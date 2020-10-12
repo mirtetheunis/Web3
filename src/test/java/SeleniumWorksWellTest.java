@@ -13,6 +13,8 @@ import java.util.UUID;
 
 public class SeleniumWorksWellTest {
 
+	//Er loopt iets fout bij mijn tests, maar mijn IntelliJ is gecrasht geweest dus heb last minute project opnieuw moeten overzetten naar dit project..
+
 		private WebDriver driver;
 
 		@Before
