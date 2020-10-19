@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
@@ -22,10 +23,16 @@
         </nav>
 
         <main>
-            <form action="Controller?command=Delete" method="POST">
-                <p><label for="userId">UserID</label><input type="text" id="userId" name="userId" required></p>
-                <p><input type="submit" id="delete" value="Delete"></p>
-            </form>
+            <c:when test="${not empty user}">
+                <p>Wil je jouw account verwijderen?</p>
+                <br>
+                <form action="Controller?command=Delete" method="POST">
+                    <p><input type="submit" id="signUp" value="Delete"></p>
+                </form>
+            </c:when>
+            <c:otherwise>
+                <p>Je bent niet ingelogd.</p>
+            </c:otherwise>
         </main>
     </div>
     <footer> &copy; Webontwikkeling 3, UC Leuven-Limburg</footer>

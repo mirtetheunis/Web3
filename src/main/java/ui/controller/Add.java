@@ -13,6 +13,7 @@ public class Add extends RequestHandler {
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
         List<String> errors = new ArrayList<>();
+        System.out.println("Add");
 
         Member member = new Member();
         setStudentUserid(member, request, errors);
@@ -20,7 +21,7 @@ public class Add extends RequestHandler {
         setStudentLastName(member, request, errors);
         setStudentEmail(member, request, errors);
         setStudentPassword(member, request, errors);
-
+        System.out.println(errors);
         if (errors.size() == 0) {
             try {
                 service.add(member);

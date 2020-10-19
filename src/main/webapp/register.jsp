@@ -35,7 +35,7 @@
             </ul>
         </div>
     </c:if>
-    <form method="POST" action="StudentInfo?command=voegToe" novalidate="novalidate">
+    <form method="POST" action="Controller?command=Add" novalidate="novalidate">
         <!-- novalidate in order to be able to run tests correctly -->
         <p><label for="userid">User id</label><input type="text" id="userid" name="userid" value="${idVorige}"
                                                      required > </p>
