@@ -11,7 +11,7 @@ public class MemberService {
     private Map<String, Member> members = new HashMap<>();
 
     public MemberService() {
-        Member administrator = new Member("admin", "admin@ucll.be", "t", "Admin", "UCLL");
+        Member administrator = new Member("admin", "admin@dcoptimi.be", "t", "Admin", "DCOptimi");
         add(administrator);
     }
 

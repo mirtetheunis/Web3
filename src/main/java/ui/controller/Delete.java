@@ -11,7 +11,7 @@ public class Delete extends RequestHandler{
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
         List<Member> members = service.getAll();
-        String userId = request.getParameter("userId").trim();
+        String userId = request.getParameter("userid").trim();
 
         for (Member m : members) {
             if (m.getUserid().equals(userId)) {

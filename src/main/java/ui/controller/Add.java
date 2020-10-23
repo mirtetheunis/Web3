@@ -16,11 +16,11 @@ public class Add extends RequestHandler {
         System.out.println("Add");
 
         Member member = new Member();
-        setStudentUserid(member, request, errors);
-        setStudentFirstName(member, request, errors);
-        setStudentLastName(member, request, errors);
-        setStudentEmail(member, request, errors);
-        setStudentPassword(member, request, errors);
+        setMemberUserid(member, request, errors);
+        setMemberFirstName(member, request, errors);
+        setMemberLastName(member, request, errors);
+        setMemberEmail(member, request, errors);
+        setMemberPassword(member, request, errors);
         System.out.println(errors);
         if (errors.size() == 0) {
             try {
@@ -34,51 +34,51 @@ public class Add extends RequestHandler {
         return "Controller?command=Register";
     }
 
-    private void setStudentUserid(Member Member, HttpServletRequest request, List<String> errors) {
-        String userId = request.getParameter("userId").trim();
+    private void setMemberUserid(Member Member, HttpServletRequest request, List<String> errors) {
+        String userId = request.getParameter("userid").trim();
         try {
             Member.setUserid(userId);
-            request.setAttribute("prevUserid", userId);
+            request.setAttribute("idVorige", userId);
         } catch (Exception e) {
             errors.add(e.getMessage());
         }
     }
 
-    private void setStudentFirstName(Member Member, HttpServletRequest request, List<String> errors) {
+    private void setMemberFirstName(Member Member, HttpServletRequest request, List<String> errors) {
         String firstName = request.getParameter("firstName").trim();
         try {
             Member.setFirstName(firstName);
-            request.setAttribute("prevFirstname", firstName);
+            request.setAttribute("voornaamVorige", firstName);
         } catch (Exception e) {
             errors.add(e.getMessage());
         }
     }
 
-    private void setStudentLastName(Member Member, HttpServletRequest request, List<String> errors) {
+    private void setMemberLastName(Member Member, HttpServletRequest request, List<String> errors) {
         String lastName = request.getParameter("lastName").trim();
         try {
             Member.setLastName(lastName);
-            request.setAttribute("prevLastname", lastName);
+            request.setAttribute("naamVorige", lastName);
         } catch (Exception e) {
             errors.add(e.getMessage());
         }
     }
 
-    private void setStudentEmail(Member Member, HttpServletRequest request, List<String> errors) {
+    private void setMemberEmail(Member Member, HttpServletRequest request, List<String> errors) {
         String email = request.getParameter("email").trim();
         try {
             Member.setEmail(email);
-            request.setAttribute("prevEmail", email);
+            request.setAttribute("emailVorige", email);
         } catch (Exception e) {
             errors.add(e.getMessage());
         }
     }
 
-    private void setStudentPassword(Member Member, HttpServletRequest request, List<String> errors) {
+    private void setMemberPassword(Member Member, HttpServletRequest request, List<String> errors) {
         String password = request.getParameter("password").trim();
         try {
             Member.setPassword(password);
-            request.setAttribute("prevPassword", password);
+            request.setAttribute("passwordVorige", password);
         } catch (Exception e) {
             errors.add(e.getMessage());
         }

@@ -23,16 +23,14 @@
         </nav>
 
         <main>
-            <c:when test="${not empty user}">
+
                 <p>Wil je jouw account verwijderen?</p>
                 <br>
                 <form action="Controller?command=Delete" method="POST">
+                    <p><label for="userid">User id</label><input type="text" id="userid" name="userid"
+                                                              required > </p>
                     <p><input type="submit" id="signUp" value="Delete"></p>
                 </form>
-            </c:when>
-            <c:otherwise>
-                <p>Je bent niet ingelogd.</p>
-            </c:otherwise>
         </main>
     </div>
     <footer> &copy; Webontwikkeling 3, UC Leuven-Limburg</footer>
