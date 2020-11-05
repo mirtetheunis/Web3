@@ -1,13 +1,8 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta charset="UTF-8">
-    <title>Overview</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <title>Contacts</title>
 </head>
 <body>
 <div id="container">
@@ -23,24 +18,24 @@
             </ul>
         </nav>
         <h2>
-            Member Overview
+            Contact Overview
         </h2>
 
     </header><main>
     <table>
         <tr>
-            <th>E-mail</th>
-            <th>First Name</th>
-            <th>Last Name</th>
+            <th>Date</th>
+            <th>Hour</th>
+            <th>Name</th>
         </tr>
-        <c:forEach var="person" items="${persons}">
+        <c:forEach var="contact" items="${contacts}">
             <tr>
-                <td>${person.email}</td>
-                <td>${person.firstName}</td>
-                <td>${person.lastName}</td>
+                <td>${contact.datum}</td>
+                <td>${contact.uur}</td>
+                <td>${contact.firstName} ${contact.lastName}</td>
             </tr>
         </c:forEach>
-        <caption>Member Overview</caption>
+        <caption>Contact Overview</caption>
     </table>
 </main>
     <footer>

@@ -1,5 +1,9 @@
 package domain.model;
 
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -10,12 +14,13 @@ public class Member {
     private String firstName;
     private String lastName;
 
-    public Member(String userid, String email, String password, String firstName, String lastName) {
+    public Member(String userid, String firstName, String lastName, String email, String password) {
         setUserid(userid);
-        setEmail(email);
-        setPassword(password);
         setFirstName(firstName);
         setLastName(lastName);
+        setEmail(email);
+        setPassword(password);
+
     }
 
     public Member() {
@@ -54,15 +59,33 @@ public class Member {
         return email;
     }
 
-    private String getPassword() {
-        return password;
+    public String getPassword() {
+        String hashedPassword = hashPassword(this.password);
+        return hashedPassword;
+    }
+
+    private String hashPassword(String password) {
+        try{
+            MessageDigest crypt = MessageDigest.getInstance("SHA-512");
+            crypt.reset();
+            byte[] passwordBytes = password.getBytes("UTF-8");
+            crypt.update(passwordBytes);
+            byte[] digest = crypt.digest();
+            BigInteger digestAsBigInteger = new BigInteger(1, digest);
+            return digestAsBigInteger.toString(16);
+        } catch (NoSuchAlgorithmException e) {
+            return e.getMessage();
+        } catch (UnsupportedEncodingException e) {
+            return e.getMessage();
+        }
     }
 
     public boolean isCorrectPassword(String password) {
         if(password.isEmpty()){
             throw new IllegalArgumentException("No password given");
         }
-        return getPassword().equals(password);
+        String hashedPassword = hashPassword(password);
+        return getPassword().equals(hashedPassword);
     }
 
     public void setPassword(String password) {

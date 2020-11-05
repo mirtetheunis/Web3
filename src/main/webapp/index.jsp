@@ -18,6 +18,7 @@
             <ul>
                 <li><a href="index.jsp">Home</a></li>
                 <li><a href="Controller?command=Overview">Overview</a></li>
+                <li><a href="Controller?command=Contact">Contacts</a></li>
                 <li><a href="Controller?command=Register">Register</a></li>
                 <li><a href="delete.jsp">Delete</a> </li>
             </ul>
@@ -28,11 +29,13 @@
     <main>
         <c:choose>
             <c:when test="${not empty user}">
-                <p>Welkom, ${user.firstName}!</p>
-                <br>
-                <form action="Controller?command=Logout" method="POST">
-                    <p><input type="submit" id="signUp" value="Log out"></p>
-                </form>
+            <div class="alert-danger">
+                    <p>Welkom, ${user.firstName}!</p>
+                    <br>
+                    <form action="Controller?command=Logout" method="POST">
+                        <p><input type="submit" id="signUp" value="Log out"></p>
+                    </form>
+            </div>
             </c:when>
             <c:otherwise>
                 <c:if test="${not empty fout}">

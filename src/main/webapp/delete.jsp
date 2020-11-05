@@ -15,8 +15,9 @@
         <h1><span>Delete</span></h1>
         <nav>
             <ul>
-                <li><a href="Controller?command=Index">Home</a></li>
+                <li><a href="index.jsp">Home</a></li>
                 <li><a href="Controller?command=Overview">Overview</a></li>
+                <li><a href="Controller?command=Contact">Contacts</a></li>
                 <li><a href="Controller?command=Register">Register</a></li>
                 <li id="actual"><a href="delete.jsp">Delete</a></li>
             </ul>

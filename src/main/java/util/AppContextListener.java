@@ -1,0 +1,17 @@
+package util;
+
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+
+public class AppContextListener implements ServletContextListener {
+    public void contextInitialized(ServletContextEvent servletContextEvent) {
+        String dbUrl = servletContextEvent.getServletContext().getInitParameter("dburl");
+        String schema = servletContextEvent.getServletContext().getInitParameter("schema");
+        DBConnectionService.connect(dbUrl, schema);
+    }
+
+    public void contextDestroyed(ServletContextEvent servletContextEvent) {
+        DBConnectionService.disconnect();
+    }
+
+}

@@ -1,6 +1,6 @@
 package ui.controller;
 
-import domain.db.MemberService;
+import domain.service.MemberService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

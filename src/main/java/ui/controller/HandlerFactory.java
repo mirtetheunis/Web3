@@ -1,6 +1,6 @@
 package ui.controller;
 
-import domain.db.MemberService;
+import domain.service.MemberService;
 
 public class HandlerFactory {
 

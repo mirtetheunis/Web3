@@ -1,7 +1,6 @@
 package ui.controller;
 
-import domain.db.MemberService;
-import domain.model.Member;
+import domain.service.MemberService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
