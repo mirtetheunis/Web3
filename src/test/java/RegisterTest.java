@@ -14,8 +14,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class RegisterTest {
 	private WebDriver driver;
 	private String path = "http://localhost:8080/Controller";
-
-	//Er loopt iets fout bij mijn tests, maar mijn IntelliJ is gecrasht geweest dus heb last minute project opnieuw moeten overzetten naar dit project..
 	
 	@Before
 	public void setUp() {
