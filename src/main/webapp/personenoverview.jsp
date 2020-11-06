@@ -17,7 +17,7 @@
             <ul>
                 <li><a href="index.jsp">Home</a></li>
                 <li><a href="Controller?command=Overview">Overview</a></li>
-                <li><a href="Controller?command=Contact">Contacts</a></li>
+                <li><a href="Controller?command=ContactOverview">Contacts</a></li>
                 <li><a href="Controller?command=Register">Register</a></li>
                 <li><a href="delete.jsp">Delete</a> </li>
             </ul>

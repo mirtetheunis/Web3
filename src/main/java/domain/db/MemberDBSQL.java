@@ -16,14 +16,13 @@ public class MemberDBSQL implements MemberDB{
         this.connection = DBConnectionService.getDbConnection();
         this.schema = DBConnectionService.getSchema();
         System.out.println(this.schema);
-
     }
 
 
     @Override
     public void add(Member member) {
         if(member == null) throw new DbException("Nothing to add.");
-        String sql = String.format("INSERT INTO %s.person (userid, firstname, lastname, email, password) VALUES (?, ?, ?, ?, ?", this.schema);
+        String sql = String.format("INSERT INTO %s.person (userid, firstname, lastname, email, password) VALUES (?, ?, ?, ?, ?)", this.schema);
 
         try {
             PreparedStatement statementSQL = connection.prepareStatement(sql);
@@ -61,11 +60,34 @@ public class MemberDBSQL implements MemberDB{
 
     @Override
     public Member get(String userid) {
-        return null;
+        String sql = String.format("SELECT * from %s.person WHERE userid = ?", this.schema);
+        try {
+            PreparedStatement statementSql = connection.prepareStatement(sql);
+            statementSql.setString(1, userid);
+
+            ResultSet result = statementSql.executeQuery();
+            String id = result.getString("userid");
+            String firstname = result.getString("firstname");
+            String lastname = result.getString("lastname");
+            String email = result.getString("email");
+            String password = result.getString("password");
+            Member member = new Member(id, firstname, lastname, email, password);
+            return member;
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage(), e);
+        }
     }
 
     @Override
     public void delete(String userid) {
+        String sql = String.format("DELETE FROM %s.person WHERE userid = ?", this.schema);
+        try {
+            PreparedStatement statementSql = connection.prepareStatement(sql);
+            statementSql.setString(1, userid);
+            statementSql.executeUpdate();
 
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage(), e);
+        }
     }
 }

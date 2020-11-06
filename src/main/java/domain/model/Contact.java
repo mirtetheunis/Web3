@@ -5,17 +5,30 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Contact {
+    private int id;
     private String firstName;
     private String lastName;
     private String email;
     private String phonenumber;
     private Timestamp date;
 
-    public Contact(String firstName, String lastName, Timestamp date, String phonenumber, String email) {
+    public Contact(int id, String firstName, String lastName, Timestamp date, String phonenumber, String email) {
+        setId(id);
         setFirstName(firstName);
         setLastName(lastName);
+        setDate(date);
         setPhonenumber(phonenumber);
         setEmail(email);
+    }
+
+    public Contact() {}
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -64,5 +77,11 @@ public class Contact {
         this.phonenumber = phonenumber;
     }
 
+    public Timestamp getDate() {
+        return date;
+    }
 
+    public void setDate(Timestamp date) {
+        this.date = date;
+    }
 }

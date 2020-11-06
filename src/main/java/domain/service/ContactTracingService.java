@@ -1,8 +1,7 @@
 package domain.service;
 
-import domain.db.DbException;
-import domain.db.MemberDB;
-import domain.db.MemberDBSQL;
+import domain.db.*;
+import domain.model.Contact;
 import domain.model.Member;
 
 import java.util.ArrayList;
@@ -10,10 +9,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MemberService {
+public class ContactTracingService {
     private MemberDB db = new MemberDBSQL();
+    private ContactDB contactDB = new ContactDBSQL();
 
-    public MemberService() {
+    public ContactTracingService() {
         Member administrator = new Member("admin", "admin@dcoptimi.be", "t", "Admin", "DCOptimi");
         add(administrator);
     }
@@ -32,6 +32,22 @@ public class MemberService {
 
     public void delete(String userid){
         db.delete(userid);
+    }
+
+    public List<Contact> getAllContacts() {
+        return contactDB.getAll();
+    }
+
+    public void addContact(Contact c) {
+        contactDB.add(c);
+    }
+
+    public void deleteContact(int id) {
+        contactDB.delete(id);
+    }
+
+    public Contact getContact(String id) {
+        return contactDB.get(id);
     }
 
 }
