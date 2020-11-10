@@ -1,6 +1,7 @@
 package ui.controller;
 
 import domain.service.ContactTracingService;
+import org.openqa.selenium.json.JsonOutput;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +12,9 @@ public abstract class RequestHandler {
     public abstract String handleRequest(HttpServletRequest request, HttpServletResponse response);
 
     public void setService(ContactTracingService contactTracingService) {
+        System.out.println("setService");
         this.service = contactTracingService;
+        System.out.println("geset");
     }
 
     public ContactTracingService getService() {

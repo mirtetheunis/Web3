@@ -12,6 +12,7 @@ public class DBConnectionService {
     }
 
     public static Connection getDbConnection() {
+        System.out.println(dbConnection);
         return dbConnection;
     }
 

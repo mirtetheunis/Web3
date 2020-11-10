@@ -14,8 +14,7 @@ public class ContactTracingService {
     private ContactDB contactDB = new ContactDBSQL();
 
     public ContactTracingService() {
-        Member administrator = new Member("admin", "admin@dcoptimi.be", "t", "Admin", "DCOptimi");
-        add(administrator);
+
     }
 
     public Member get(String userid){
@@ -23,6 +22,7 @@ public class ContactTracingService {
     }
 
     public List<Member> getAll(){
+        System.out.println("getAll");
         return db.getAll();
     }
 

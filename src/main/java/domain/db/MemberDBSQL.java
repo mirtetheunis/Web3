@@ -26,11 +26,14 @@ public class MemberDBSQL implements MemberDB{
 
         try {
             PreparedStatement statementSQL = connection.prepareStatement(sql);
+
             statementSQL.setString(1, member.getUserid());
             statementSQL.setString(2, member.getFirstName());
             statementSQL.setString(3, member.getLastName());
             statementSQL.setString(4, member.getEmail());
             statementSQL.setString(5, member.getPassword());
+
+            statementSQL.execute();
         } catch (SQLException e) {
             throw new DbException(e);
         }
@@ -38,10 +41,12 @@ public class MemberDBSQL implements MemberDB{
 
     @Override
     public List<Member> getAll() {
+        System.out.println("MemberDBSQL getAll");
         List<Member> members = new ArrayList<>();
         String sql = String.format("SELECT * FROM %s.person", this.schema);
         try {
             PreparedStatement statementSql = connection.prepareStatement(sql);
+            System.out.println("PreparedStatement");
             ResultSet result = statementSql.executeQuery();
             while (result.next()) {
                 String userid = result.getString("userid");
@@ -49,6 +54,7 @@ public class MemberDBSQL implements MemberDB{
                 String lastname = result.getString("lastname");
                 String email = result.getString("email");
                 String password = result.getString("password");
+                System.out.println("Gegevens binnenhalen");
                 Member member = new Member(userid, firstname, lastname, email, password);
                 members.add(member);
             }
