@@ -58,7 +58,7 @@ public class AddContact extends RequestHandler{
         String datum = request.getParameter("date").trim();
         String uur = request.getParameter("hour").trim();
         try {
-            Timestamp date = Timestamp.valueOf(datum + uur);
+            Timestamp date = Timestamp.valueOf(datum + " " + uur + ":00");
             contact.setDate(date);
             request.setAttribute("datumVorige", datum);
             request.setAttribute("uurVorige", uur);
