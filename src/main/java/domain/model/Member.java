@@ -60,7 +60,8 @@ public class Member {
     }
 
     public String getPassword() {
-        return this.password;
+        String hashedPassword = hashPassword(this.password);
+        return hashedPassword;
     }
 
     private String hashPassword(String password) {

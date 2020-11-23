@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="UTF-8">
     <title>Sign Up</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/stijl.css">
 </head>
 <body>
 <div id="container">
@@ -18,7 +18,7 @@
                 <li><a href="index.jsp">Home</a></li>
                 <li><a href="Controller?command=Overview">Overview</a></li>
                 <li><a href="Controller?command=ContactOverview">Contacts</a></li>
-                <li><a href="Controller?command=Register">Register</a></li>
+                <li id="actual"><a href="Controller?command=Register">Register</a></li>
                 <li><a href="delete.jsp">Delete</a> </li>
             </ul>
         </nav>

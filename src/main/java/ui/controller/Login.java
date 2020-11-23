@@ -13,12 +13,15 @@ public class Login extends RequestHandler {
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
 
         try {
+            System.out.println(request.getParameter("userId"));
             String userId = request.getParameter("userId").trim();
-            Member person = getService().get(userId);
+            Member member = getService().get(userId);
+            System.out.println("get userId");
 
-            if (person != null && person.isCorrectPassword(request.getParameter("password"))) {
+            if (member != null && member.isCorrectPassword(request.getParameter("password"))) {
+                System.out.println("Ww checken");
                 HttpSession session = request.getSession();
-                session.setAttribute("user", person);
+                session.setAttribute("user", member);
             } else {
                 request.setAttribute("fout", "Het wachtwoord is fout");
                 request.setAttribute("userIdPrevious", userId);
