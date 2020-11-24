@@ -18,6 +18,7 @@ public class ContactTracingService {
     }
 
     public Member get(String userid){
+        System.out.println("service Member get");
         return db.get(userid);
     }
 

@@ -66,18 +66,23 @@ public class MemberDBSQL implements MemberDB{
 
     @Override
     public Member get(String userid) {
+        System.out.println("DBSQL get");
         String sql = String.format("SELECT * from %s.person WHERE userid = ?", this.schema);
         try {
             PreparedStatement statementSql = connection.prepareStatement(sql);
             statementSql.setString(1, userid);
 
             ResultSet result = statementSql.executeQuery();
+            System.out.println(result);
             String id = result.getString("userid");
+            System.out.println(id);
             String firstname = result.getString("firstname");
             String lastname = result.getString("lastname");
             String email = result.getString("email");
             String password = result.getString("password");
+            System.out.println(password);
             Member member = new Member(id, firstname, lastname, email, password);
+            System.out.println(member);
             return member;
         } catch (SQLException e) {
             throw new DbException(e.getMessage(), e);
