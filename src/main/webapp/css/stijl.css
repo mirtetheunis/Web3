@@ -8,7 +8,7 @@ body {
     font-family: arial,sans-serif;
     font-size: 90%;
     color: #000000;
-    background-color: #EBB4B4;
+    background-color: #EFC0C0;
 }
 
 div#container {
@@ -44,7 +44,7 @@ nav ul li a{
 }
 
 nav ul li#actual {
-    background-color: #EBB4B4;
+    background-color: #EFC0C0;
 }
 
 

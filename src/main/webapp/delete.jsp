@@ -39,6 +39,15 @@
                 Delete contact
             </h2>
                 <p>Wil je een contact verwijderen?</p>
+            <c:if test = "${not empty errors}">
+                <div class="alert-danger">
+                    <ul>
+                        <c:forEach items = "${errors}" var="error">
+                            <li>${error}</li>
+                        </c:forEach>
+                    </ul>
+                </div>
+            </c:if>
                 <form action="Controller?command=DeleteContact" method="POST">
                     <p><label for="firstName">First Name</label>
                         <input type="text" id="firstName" name="firstName" required> </p>

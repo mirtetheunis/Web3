@@ -1,4 +1,4 @@
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -34,7 +34,7 @@
         </tr>
         <c:forEach var="contact" items="${contacts}">
             <tr>
-                <td><fmt:formatDate pattern="dd/MM/yyyy" value="${contact.date}"/></td>
+                <td><fmt:formatDate pattern="yyyy-MM-dd" value="${contact.date}"/></td>
                 <td><fmt:formatDate pattern="HH:mm" value="${contact.date}"/></td>
                 <td>${contact.firstName} ${contact.lastName}</td>
             </tr>

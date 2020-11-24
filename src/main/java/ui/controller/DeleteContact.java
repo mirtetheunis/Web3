@@ -17,7 +17,7 @@ public class DeleteContact extends RequestHandler {
         String lastname = request.getParameter("lastName");
         String datum = request.getParameter("date");
         String uur = request.getParameter("hour");
-        Timestamp date = Timestamp.valueOf(datum + uur);
+        Timestamp date = Timestamp.valueOf(datum + " " + uur + ":00");
 
         for (Contact c : contacts) {
             if(c.getFirstName().equals(firstname) && c.getLastName().equals(lastname)
