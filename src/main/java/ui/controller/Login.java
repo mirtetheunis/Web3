@@ -15,7 +15,7 @@ public class Login extends RequestHandler {
         try {
             System.out.println(request.getParameter("userId"));
             String userId = request.getParameter("userId").trim();
-            Member member = getService().get(userId);
+            Member member = service.get(userId);
             System.out.println("get userId");
 
             if (member != null && member.isCorrectPassword(request.getParameter("password"))) {

@@ -25,6 +25,7 @@ public class AddContact extends RequestHandler{
         if (errors.size() == 0) {
             try {
                 service.addContact(contact);
+                clearPreviousValues(request);
                 return "Controller?command=ContactOverview";
             } catch (DbException e) {
                 errors.add(e.getMessage());
@@ -32,6 +33,15 @@ public class AddContact extends RequestHandler{
         }
         request.setAttribute("errors", errors);
         return "Controller?command=ContactOverview";
+    }
+
+    private void clearPreviousValues(HttpServletRequest request) {
+        request.removeAttribute("voornaamVorige");
+        request.removeAttribute("naamVorige");
+        request.removeAttribute("datumVorige");
+        request.removeAttribute("uurVorige");
+        request.removeAttribute("gsmVorige");
+        request.removeAttribute("emailVorige");
     }
 
     private void setContactFirstName(Contact contact, HttpServletRequest request, List<String> errors) {
