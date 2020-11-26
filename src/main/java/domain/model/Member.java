@@ -60,8 +60,7 @@ public class Member {
     }
 
     public String getPassword() {
-        String hashedPassword = hashPassword(this.password);
-        return hashedPassword;
+        return password;
     }
 
     private String hashPassword(String password) {
@@ -86,6 +85,10 @@ public class Member {
         }
         String hashedPassword = hashPassword(password);
         return getPassword().equals(hashedPassword);
+    }
+
+    public void setPasswordHashed(String password) {
+        this.setPassword(hashPassword(password));
     }
 
     public void setPassword(String password) {

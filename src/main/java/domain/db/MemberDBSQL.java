@@ -73,6 +73,7 @@ public class MemberDBSQL implements MemberDB{
             statementSql.setString(1, userid);
 
             ResultSet result = statementSql.executeQuery();
+            result.next();
             System.out.println(result);
             String id = result.getString("userid");
             System.out.println(id);
