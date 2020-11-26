@@ -32,12 +32,14 @@
             <th>Date</th>
             <th>Hour</th>
             <th>Name</th>
+            <th>Delete</th>
         </tr>
         <c:forEach var="contact" items="${contacts}">
             <tr>
                 <td><fmt:formatDate pattern="yyyy-MM-dd" value="${contact.date}"/></td>
                 <td><fmt:formatDate pattern="HH:mm" value="${contact.date}"/></td>
                 <td>${contact.firstName} ${contact.lastName}</td>
+                <td><a href="Controller?command=DeleteContact&firstName=${contact.firstName}&lastName=${contact.lastName}&date=${contact.date}">Delete</a></td>
             </tr>
         </c:forEach>
         <caption>Contact Overview</caption>

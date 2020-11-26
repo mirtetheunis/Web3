@@ -34,31 +34,6 @@
                         <input type="text" id="userid" name="userid" required > </p>
                     <p><input type="submit" id="signUp" value="Delete member"></p>
                 </form>
-
-            <h2>
-                Delete contact
-            </h2>
-                <p>Wil je een contact verwijderen?</p>
-            <c:if test = "${not empty errors}">
-                <div class="alert-danger">
-                    <ul>
-                        <c:forEach items = "${errors}" var="error">
-                            <li>${error}</li>
-                        </c:forEach>
-                    </ul>
-                </div>
-            </c:if>
-                <form action="Controller?command=DeleteContact" method="POST">
-                    <p><label for="firstName">First Name</label>
-                        <input type="text" id="firstName" name="firstName" required> </p>
-                    <p><label for="lastName">Last Name</label>
-                        <input type="text" id="lastName" name="lastName" required> </p>
-                    <p><label for="date">Date</label>
-                        <input type="text" id="date" name="lastName" required> </p>
-                    <p><label for="hour">Hour</label>
-                        <input type="text" id="hour" name="hour" required> </p>
-                    <p><input type="submit" id="delete" value="Delete Contact"></p>
-                </form>
         </main>
     </div>
     <footer> &copy; Webontwikkeling 3, UC Leuven-Limburg</footer>

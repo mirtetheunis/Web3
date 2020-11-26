@@ -22,7 +22,7 @@ public class ContactDBSQL implements ContactDB{
     @Override
     public void add(Contact contact) {
         if(contact == null) throw new DbException("Nothing to add.");
-        String sql = String.format("INSERT INTO %s.contact (firstname, lastname, date, gsm, email) VALUES (?, ?, ?, ?, ?)", this.schema);
+        String sql = String.format("INSERT INTO %s.contact (firstname, lastname, date, gsm, email) VALUES (?, ?, ?, ?, ?) RETURNING id", this.schema);
 
         try {
             PreparedStatement statementSQL = connection.prepareStatement(sql);
@@ -31,9 +31,9 @@ public class ContactDBSQL implements ContactDB{
             statementSQL.setObject(3, contact.getDate());
             statementSQL.setString(4, contact.getPhonenumber());
             statementSQL.setString(5, contact.getEmail());
-            statementSQL.execute();
-            //result.next();
-            //contact.setId(result.getInt(1));
+            ResultSet result = statementSQL.executeQuery();
+            result.next();
+            contact.setId(result.getInt(1));
         } catch (SQLException e) {
             throw new DbException(e);
         }
