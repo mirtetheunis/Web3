@@ -31,21 +31,22 @@
         <div class="alert-danger">
             <ul>
                 <c:forEach items = "${errors}" var="error">
-                    <li>${error}</li>
+                    <li><c:out value="${error}"/></li>
                 </c:forEach>
             </ul>
         </div>
     </c:if>
     <form method="POST" action="Controller?command=Add" novalidate="novalidate">
         <!-- novalidate in order to be able to run tests correctly -->
-        <p><label for="userid">User id</label><input type="text" id="userid" name="userid" value="${idVorige}"
-                                                     required > </p>
+        <p><label for="userid">User id</label><input type="text" id="userid" name="userid" value="<c:out value="${idVorige}"/>"
+                                                         required > </p>
         <p><label for="firstName">First Name</label><input type="text" id="firstName" name="firstName"
-                                                           required value="${voornaamVorige}"> </p>
-        <p><label for="lastName">Last Name</label><input type="text" id="lastName" name="lastName" value="${naamVorige}"
+                                                           required value="<c:out value="${voornaamVorige}"/>"> </p>
+        <p><label for="lastName">Last Name</label><input type="text" id="lastName" name="lastName" value="<c:out value="${naamVorige}"/>"
                                                          required> </p>
-        <p><label for="email">Email</label><input type="email" id="email" name="email" value="${emailVorige}" required></p>
-        <p><label for="password">Password</label><input type="password" id="password"  name="password" value="${passwordVorige}"
+        <p><label for="email">Email</label><input type="email" id="email" name="email" value="<c:out value="${emailVorige}"/>"
+                                                        required></p>
+        <p><label for="password">Password</label><input type="password" id="password"  name="password" value="<c:out value="${passwordVorige}"/>"
                                                         required> </p>
         <p><input type="submit" id="signUp" value="Sign Up"></p>
 

@@ -30,7 +30,7 @@
     <main>
         <c:choose>
             <c:when test="${not empty user}">
-                    <p>Welkom, ${user.firstName}!</p>
+                    <p>Welkom, <c:out value="${user.firstName}"/>!</p>
                     <br>
                     <form action="Controller?command=Logout" method="POST">
                         <p><input type="submit" id="signUp" value="Log out"></p>
@@ -40,13 +40,13 @@
                 <c:if test="${not empty fout}">
                     <div class="alert-danger">
                         <ul>
-                            <li>${fout}</li>
+                            <li><c:out value="${fout}"/></li>
                         </ul>
                     </div>
                 </c:if>
                 <form action="Controller?command=Login" method="POST">
                     <p><label for="userId">Your userID</label><input type="text" id="userId" name="userId"
-                                                                     value="${userIdPrevious}" required></p>
+                                                                     value="<c:out value="${userIdPrevious}"/>" required></p>
                     <p><label for="password">Your password</label><input type="password" id="password"
                                                                          name="password" required></p>
                     <p><input type="submit" id="logIn" value="Log in"></p>

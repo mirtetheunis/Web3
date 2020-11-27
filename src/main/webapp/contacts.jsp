@@ -38,7 +38,7 @@
             <tr>
                 <td><fmt:formatDate pattern="yyyy-MM-dd" value="${contact.date}"/></td>
                 <td><fmt:formatDate pattern="HH:mm" value="${contact.date}"/></td>
-                <td>${contact.firstName} ${contact.lastName}</td>
+                <td><c:out value="${contact.firstName} ${contact.lastName}"/></td>
                 <td><a href="Controller?command=DeleteContact&firstName=${contact.firstName}&lastName=${contact.lastName}&date=${contact.date}">Delete</a></td>
             </tr>
         </c:forEach>
@@ -61,16 +61,17 @@
         <form method="POST" action="Controller?command=AddContact" novalidate="novalidate">
             <!-- novalidate in order to be able to run tests correctly -->
             <p><label for="firstName">First Name</label><input type="text" id="firstName" name="firstName"
-                                                               required value="${voornaamVorige}"> </p>
-            <p><label for="lastName">Last Name</label><input type="text" id="lastName" name="lastName" value="${naamVorige}"
+                                                               required value="<c:out value="${voornaamVorige}"/>"> </p>
+            <p><label for="lastName">Last Name</label><input type="text" id="lastName" name="lastName" value="<c:out value="${naamVorige}"/>"
                                                              required> </p>
-            <p><label for="date">Date</label><input type="text" id="date" name="date" value="${datumVorige}"
-                                                         required > </p>
-            <p><label for="hour">Hour</label><input type="text" id="hour"  name="hour" value="${uurVorige}"
+            <p><label for="date">Date</label><input type="text" id="date" name="date" value="<c:out value="${datumVorige}"/>"
+                                                            required > </p>
+            <p><label for="hour">Hour</label><input type="text" id="hour"  name="hour" value="<c:out value="${uurVorige}"/>"
                                                             required> </p>
-            <p><label for="gsm">GSM</label><input type="text" id="gsm"  name="gsm" value="${gsmVorige}"
+            <p><label for="gsm">GSM</label><input type="text" id="gsm"  name="gsm" value="<c:out value="${gsmVorige}"/>"
                                                             required> </p>
-            <p><label for="email">Email</label><input type="email" id="email" name="email" value="${emailVorige}" required></p>
+            <p><label for="email">Email</label><input type="email" id="email" name="email" value="<c:out value="${emailVorige}"/>"
+                                                            required></p>
 
             <p><input type="submit" id="addContact" value="Add Contact"></p>
 
