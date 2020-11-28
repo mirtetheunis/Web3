@@ -20,6 +20,7 @@
                 <li><a href="Controller?command=ContactOverview">Contacts</a></li>
                 <li><a href="Controller?command=Register">Register</a></li>
                 <li id="actual"><a href="delete.jsp">Delete</a></li>
+                <li><a href="registerPositiveTest.jsp">Register Test</a> </li>
             </ul>
         </nav>
 
