@@ -3,15 +3,17 @@ package ui.controller;
 import domain.db.DbException;
 import domain.model.Member;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Add extends RequestHandler {
 
     @Override
-    public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
+    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         List<String> errors = new ArrayList<>();
         System.out.println("Add");
 
@@ -25,13 +27,18 @@ public class Add extends RequestHandler {
         if (errors.size() == 0) {
             try {
                 service.add(member);
-                return "Controller?command=Overview";
+                response.sendRedirect("Controller?command=Overview");
             } catch (DbException e) {
                 errors.add(e.getMessage());
             }
+        } else {
+            try {
+                request.setAttribute("errors", errors);
+                request.getRequestDispatcher("Controller?command=Register").forward(request, response);
+            } catch (ServletException e) {
+                e.printStackTrace();
+            }
         }
-        request.setAttribute("errors", errors);
-        return "Controller?command=Register";
     }
 
     private void setMemberUserid(Member Member, HttpServletRequest request, List<String> errors) {

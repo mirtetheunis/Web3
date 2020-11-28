@@ -13,13 +13,15 @@ public class Member {
     private String password;
     private String firstName;
     private String lastName;
+    //private Role role;
 
-    public Member(String userid, String firstName, String lastName, String email, String password) {
+    public Member(String userid, String firstName, String lastName, String email, String password/*, Role role*/) {
         setUserid(userid);
         setFirstName(firstName);
         setLastName(lastName);
         setEmail(email);
         setPassword(password);
+        //setRole(role);
 
     }
 
@@ -119,6 +121,14 @@ public class Member {
         }
         this.lastName = lastName;
     }
+
+    /*public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }*/
 
     @Override
     public String toString(){

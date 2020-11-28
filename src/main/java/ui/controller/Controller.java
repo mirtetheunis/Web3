@@ -29,13 +29,12 @@ public class Controller extends HttpServlet {
         if (command != null) {
             try {
                 RequestHandler handler = handlerFactory.getHandler(command, service);
-                destination = handler.handleRequest(request, response);
+                handler.handleRequest(request, response);
                 System.out.println("Controller");
             } catch (Exception e) {
                 request.setAttribute("error", e.getMessage());
-                destination = "error.jsp";
+                request.getRequestDispatcher("error.jsp").forward(request, response);
             }
         }
-        request.getRequestDispatcher(destination).forward(request, response);
     }
 }

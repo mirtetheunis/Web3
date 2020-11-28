@@ -1,6 +1,7 @@
 package domain.db;
 
 import domain.model.Member;
+import domain.model.Role;
 import util.DBConnectionService;
 
 
@@ -32,6 +33,7 @@ public class MemberDBSQL implements MemberDB{
             statementSQL.setString(3, member.getLastName());
             statementSQL.setString(4, member.getEmail());
             statementSQL.setString(5, member.getPassword());
+            //statementSQL.setObject(6, member.getRole());
 
             statementSQL.execute();
         } catch (SQLException e) {
@@ -54,6 +56,7 @@ public class MemberDBSQL implements MemberDB{
                 String lastname = result.getString("lastname");
                 String email = result.getString("email");
                 String password = result.getString("password");
+
                 System.out.println("Gegevens binnenhalen");
                 Member member = new Member(userid, firstname, lastname, email, password);
                 members.add(member);

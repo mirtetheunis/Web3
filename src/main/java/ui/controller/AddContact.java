@@ -3,15 +3,17 @@ package ui.controller;
 import domain.db.DbException;
 import domain.model.Contact;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AddContact extends RequestHandler{
     @Override
-    public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
+    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         List<String> errors = new ArrayList<>();
 
         Contact contact = new Contact();
@@ -26,13 +28,18 @@ public class AddContact extends RequestHandler{
             try {
                 service.addContact(contact);
                 clearPreviousValues(request);
-                return "Controller?command=ContactOverview";
+                response.sendRedirect("Controller?command=ContactOverview");
             } catch (DbException e) {
                 errors.add(e.getMessage());
             }
+        } else {
+            try {
+                request.setAttribute("errors", errors);
+                request.getRequestDispatcher("Controller?command=ContactOverview").forward(request, response);
+            } catch (ServletException e) {
+                e.printStackTrace();
+            }
         }
-        request.setAttribute("errors", errors);
-        return "Controller?command=ContactOverview";
     }
 
     private void clearPreviousValues(HttpServletRequest request) {

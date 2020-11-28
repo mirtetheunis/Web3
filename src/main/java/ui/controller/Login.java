@@ -3,14 +3,16 @@ package ui.controller;
 import domain.db.DbException;
 import domain.model.Member;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 public class Login extends RequestHandler {
 
     @Override
-    public String handleRequest(HttpServletRequest request, HttpServletResponse response) {
+    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         try {
             System.out.println(request.getParameter("userId"));
@@ -29,7 +31,10 @@ public class Login extends RequestHandler {
         } catch (DbException e) {
             request.setAttribute("fout", "User id bestaat niet");
         }
-
-        return "index.jsp";
+        try {
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        }
     }
 }
