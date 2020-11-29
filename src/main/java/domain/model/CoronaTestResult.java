@@ -9,6 +9,11 @@ public class CoronaTestResult {
         setDate(date);
     }
     public CoronaTestResult() {};
+    public CoronaTestResult(int id, String date, String personid) {
+        setId(id);
+        setDate(date);
+        setPersonid(personid);
+    }
 
     public int getId() {
         return id;

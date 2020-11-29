@@ -4,10 +4,8 @@ import domain.model.Contact;
 import domain.model.CoronaTestResult;
 import util.DBConnectionService;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CoronaTestResultDBSQL implements CoronaTestResultDB {
@@ -38,7 +36,45 @@ public class CoronaTestResultDBSQL implements CoronaTestResultDB {
     }
 
     @Override
-    public List<Contact> getAll() {
-        return null;
+    public List<CoronaTestResult> getAll() {
+        List<CoronaTestResult> tests = new ArrayList<>();
+        String sql = String.format("SELECT * FROM %s.coronatestresult", this.schema);
+        try {
+            PreparedStatement statementSql = connection.prepareStatement(sql);
+            ResultSet result = statementSql.executeQuery();
+            while (result.next()) {
+                int id = result.getInt("id");
+                String date = result.getString("date");
+                String personid = result.getString("personid");
+                CoronaTestResult test = new CoronaTestResult(id, date, personid);
+                tests.add(test);
+            }
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage(), e);
+        }
+        return tests;
+    }
+
+    @Override
+    public CoronaTestResult getTest(String personid) {
+        String sql = String.format("SELECT * from %s.coronatestresult WHERE personid = ?", this.schema);
+        try {
+            PreparedStatement statementSql = connection.prepareStatement(sql);
+            statementSql.setString(1, personid);
+
+            ResultSet result = statementSql.executeQuery();
+            if(result.next() == false) {
+                CoronaTestResult testEmpty = null;
+                return testEmpty;
+            } else {
+                int id = result.getInt("id");
+                String date = result.getString("date");
+                String personID = result.getString("personid");
+                CoronaTestResult test = new CoronaTestResult(id, date, personID);
+                return test;
+            }
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage(), e);
+        }
     }
 }

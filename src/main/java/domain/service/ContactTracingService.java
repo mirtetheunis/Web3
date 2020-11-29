@@ -61,4 +61,8 @@ public class ContactTracingService {
         testDB.add(test);
     }
 
+    public List<CoronaTestResult> getAllPositiveTests() { return testDB.getAll();}
+
+    public CoronaTestResult getTestFromMember(String personid) {return testDB.getTest(personid);}
+
 }

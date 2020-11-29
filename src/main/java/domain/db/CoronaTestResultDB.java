@@ -8,5 +8,7 @@ import java.util.List;
 public interface CoronaTestResultDB {
     void add(CoronaTestResult test);
 
-    List<Contact> getAll();
+    List<CoronaTestResult> getAll();
+
+    CoronaTestResult getTest(String personid);
 }

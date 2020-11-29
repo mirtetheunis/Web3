@@ -24,6 +24,7 @@
                     <li><a href="Controller?command=Overview">Overview</a></li>
                     <li><a href="Controller?command=ContactOverviewPersonal">Own Contacts</a> </li>
                     <li><a href="registerPositiveTest.jsp">Register Test</a> </li>
+                    <li><a href="Controller?command=Search">Search</a> </li>
                 </c:if>
 
                 <c:if test="${user.role=='ADMIN'}">

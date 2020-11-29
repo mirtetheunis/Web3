@@ -5,13 +5,13 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="UTF-8">
-    <title>Register Positive Test</title>
+    <title>Search</title>
     <link rel="stylesheet" type="text/css" href="css/stijl.css">
 </head>
 <body>
 <div id="container">
     <header>
-        <h1><span>Register</span></h1>
+        <h1><span>Search</span></h1>
         <nav>
             <ul>
                 <li><a href="index.jsp">Home</a></li>
@@ -19,8 +19,8 @@
                 <c:if test="${user.role=='ADMIN' || user.role=='CUSTOMER'}">
                     <li><a href="Controller?command=Overview">Overview</a></li>
                     <li><a href="Controller?command=ContactOverviewPersonal">Own Contacts</a> </li>
-                    <li id="actual"><a href="registerPositiveTest.jsp">Register Test</a> </li>
-                    <li><a href="Controller?command=Search">Search</a> </li>
+                    <li><a href="registerPositiveTest.jsp">Register Test</a> </li>
+                    <li id="actual"><a href="Controller?command=Search">Search</a> </li>
                 </c:if>
 
                 <c:if test="${user.role=='ADMIN'}">
@@ -32,7 +32,7 @@
             </ul>
         </nav>
         <h2>
-            Register Positive Test
+            Contacts
         </h2>
     </header>
     <main>
@@ -45,16 +45,25 @@
                 </ul>
             </div>
         </c:if>
-        <form method="POST" action="Controller?command=RegisterTest" novalidate="novalidate">
-            <!-- novalidate in order to be able to run tests correctly -->
-            <p><label for="dateTest">Date</label>
-                <input type="text" id="dateTest" name="dateTest" required > </p>
-            <p><input type="submit" id="signUp" value="Covid-19 positive"></p>
-
-        </form>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>GSM</th>
+                <th>E-mail</th>
+            </tr>
+            <c:forEach var="contact" items="${contacts}">
+                <tr>
+                    <td><c:out value="${contact.firstName} ${contact.lastName}"/></td>
+                    <td><c:out value="${contact.phonenumber}"/></td>
+                    <td><c:out value="${contact.email}"/></td>
+                </tr>
+            </c:forEach>
+            <caption>Contacts</caption>
+        </table>
     </main>
 
 </div>
+
 
 </body>
 </html>
