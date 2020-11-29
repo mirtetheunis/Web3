@@ -2,6 +2,7 @@ package domain.service;
 
 import domain.db.*;
 import domain.model.Contact;
+import domain.model.CoronaTestResult;
 import domain.model.Member;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.Map;
 public class ContactTracingService {
     private MemberDB db = new MemberDBSQL();
     private ContactDB contactDB = new ContactDBSQL();
+    private CoronaTestResultDB testDB = new CoronaTestResultDBSQL();
 
     public ContactTracingService() {
 
@@ -49,6 +51,10 @@ public class ContactTracingService {
 
     public Contact getContact(String id) {
         return contactDB.get(id);
+    }
+
+    public void addTestResult(CoronaTestResult test) {
+        testDB.add(test);
     }
 
 }

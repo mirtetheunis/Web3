@@ -1,15 +1,14 @@
 package domain.model;
 
-import java.sql.Timestamp;
-
 public class CoronaTestResult {
     private int id;
-    private Timestamp date;
+    private String date;
     private String personid;
 
-    public CoronaTestResult(Timestamp date) {
+    public CoronaTestResult(String date) {
         setDate(date);
     }
+    public CoronaTestResult() {};
 
     public int getId() {
         return id;
@@ -19,11 +18,14 @@ public class CoronaTestResult {
         this.id = id;
     }
 
-    public Timestamp getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(String date) {
+        if(date.isEmpty()){
+            throw new DomainException("No date given.");
+        }
         this.date = date;
     }
 
