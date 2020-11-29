@@ -25,10 +25,10 @@ public class RegisterTest {
 		driver.get(path+"?command=Register");
 	}
 	
-	@After
+	/*@After
 	public void clean() {
 	    driver.quit();
-	}
+	}*/
 
 	@Test
 	public void test_Register_AllFieldsFilledInCorrectly_UserIsRegistered() {

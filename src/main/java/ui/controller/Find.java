@@ -1,5 +1,6 @@
 package ui.controller;
 
+import domain.db.DbException;
 import domain.model.Contact;
 import domain.model.Role;
 
@@ -19,22 +20,37 @@ public class Find extends RequestHandler{
 
         List<Contact> contacts = service.getAllContacts();
         List<Contact> contactsAtTime = new ArrayList<>();
+        List<String> errors = new ArrayList<>();
 
         String datum = request.getParameter("date");
         String uur = request.getParameter("hour");
-        Timestamp date = Timestamp.valueOf(datum + " " + uur + ":00");
 
-        for(Contact c : contacts) {
-            if(c.getDate().equals(date)) {
-                contactsAtTime.add(c);
+        if(datum.isEmpty() || uur.isEmpty()) {
+            errors.add("Vul alle velden in.");
+        } else {
+            Timestamp date = Timestamp.valueOf(datum + " " + uur + ":00");
+
+            for(Contact c : contacts) {
+                if(c.getDate().equals(date)) {
+                    contactsAtTime.add(c);
+                }
             }
         }
 
-        try {
-            request.setAttribute("contacts", contactsAtTime);
-            request.getRequestDispatcher("findResult.jsp").forward(request, response);
-        } catch (ServletException e) {
-            e.printStackTrace();
+        if (errors.size() == 0) {
+            try {
+                request.setAttribute("contacts", contactsAtTime);
+                request.getRequestDispatcher("findResult.jsp").forward(request, response);
+            } catch (DbException | ServletException e) {
+                errors.add(e.getMessage());
+            }
+        } else {
+            try {
+                request.setAttribute("errors", errors);
+                request.getRequestDispatcher("find.jsp").forward(request, response);
+            } catch (ServletException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
