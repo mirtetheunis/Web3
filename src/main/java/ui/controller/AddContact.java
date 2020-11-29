@@ -4,6 +4,7 @@ import domain.db.DbException;
 import domain.model.Contact;
 import domain.model.DomainException;
 import domain.model.Member;
+import domain.model.Role;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,9 @@ import java.util.List;
 public class AddContact extends RequestHandler{
     @Override
     public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Role[] roles = {Role.ADMIN};
+        Utility.checkRole(request, roles);
+
         List<String> errors = new ArrayList<>();
 
         Contact contact = new Contact();

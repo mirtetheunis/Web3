@@ -2,6 +2,7 @@ package ui.controller;
 
 import domain.model.Contact;
 import domain.model.Member;
+import domain.model.Role;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,9 @@ import java.util.List;
 public class ContactOverviewPersonal extends RequestHandler{
     @Override
     public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Role[] roles = {Role.ADMIN, Role.CUSTOMER};
+        Utility.checkRole(request, roles);
+
         Member m = (Member) request.getSession().getAttribute("user");
         try {
             String personid = m.getUserid();

@@ -3,6 +3,7 @@ package ui.controller;
 import domain.db.DbException;
 import domain.model.Contact;
 import domain.model.Member;
+import domain.model.Role;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,9 @@ import java.util.List;
 public class AddOwnContact extends RequestHandler {
     @Override
     public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Role[] roles = {Role.ADMIN, Role.CUSTOMER};
+        Utility.checkRole(request, roles);
+
         List<String> errors = new ArrayList<>();
 
         Contact contact = new Contact();
@@ -30,14 +34,14 @@ public class AddOwnContact extends RequestHandler {
             try {
                 service.addContact(contact);
                 clearPreviousValues(request);
-                response.sendRedirect("Controller?command=ContactOverview");
+                response.sendRedirect("Controller?command=ContactOverviewPersonal");
             } catch (DbException e) {
                 errors.add(e.getMessage());
             }
         } else {
             try {
                 request.setAttribute("errors", errors);
-                request.getRequestDispatcher("Controller?command=ContactOverview").forward(request, response);
+                request.getRequestDispatcher("Controller?command=ContactOverviewPersonal").forward(request, response);
             } catch (ServletException e) {
                 e.printStackTrace();
             }

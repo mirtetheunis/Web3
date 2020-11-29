@@ -16,11 +16,19 @@
         <nav>
             <ul>
                 <li><a href="index.jsp">Home</a></li>
-                <li><a href="Controller?command=Overview">Overview</a></li>
-                <li><a href="Controller?command=ContactOverview">Contacts</a></li>
-                <li><a href="Controller?command=Register">Register</a></li>
-                <li id="actual"><a href="delete.jsp">Delete</a></li>
-                <li><a href="registerPositiveTest.jsp">Register Test</a> </li>
+
+                <c:if test="${user.role=='ADMIN' || user.role=='CUSTOMER'}">
+                    <li><a href="Controller?command=Overview">Overview</a></li>
+                    <li><a href="Controller?command=ContactOverviewPersonal">Own Contacts</a> </li>
+                    <li><a href="registerPositiveTest.jsp">Register Test</a> </li>
+                </c:if>
+
+                <c:if test="${user.role=='ADMIN'}">
+                    <li><a href="Controller?command=ContactOverview">Contacts</a></li>
+                    <li><a href="Controller?command=Register">Register</a></li>
+                    <li id="actual"><a href="delete.jsp">Delete</a> </li>
+                </c:if>
+
             </ul>
         </nav>
 
@@ -28,7 +36,7 @@
             <h2>
                 Delete member
             </h2>
-                <p>Wil je jouw account verwijderen?</p>
+                <p>Wil je een account verwijderen?</p>
                 <br>
                 <form action="Controller?command=Delete" method="POST">
                     <p><label for="userid">User id</label>

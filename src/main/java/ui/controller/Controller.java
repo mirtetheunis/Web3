@@ -25,16 +25,16 @@ public class Controller extends HttpServlet {
 
     public void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String command = request.getParameter("command");
-        String destination = "index.jsp";
-        if (command != null) {
+        if(command == null || command.isEmpty())
+            command = "Home";
+        RequestHandler handler = handlerFactory.getHandler(command, service);
+
             try {
-                RequestHandler handler = handlerFactory.getHandler(command, service);
                 handler.handleRequest(request, response);
                 System.out.println("Controller");
-            } catch (Exception e) {
-                request.setAttribute("error", e.getMessage());
-                request.getRequestDispatcher("error.jsp").forward(request, response);
+            } catch (NotAuthorizedException e) {
+                request.setAttribute("notAutorized", "You have insufficient rights to have a look at this page.");
+                handlerFactory.getHandler("Home", service).handleRequest(request,response);
             }
         }
-    }
 }

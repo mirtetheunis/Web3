@@ -18,17 +18,28 @@
         <nav>
             <ul>
                 <li id="actual"><a href="index.jsp">Home</a></li>
-                <li><a href="Controller?command=Overview">Overview</a></li>
-                <li><a href="Controller?command=ContactOverview">Contacts</a></li>
-                <li><a href="Controller?command=Register">Register</a></li>
-                <li><a href="delete.jsp">Delete</a> </li>
-                <li><a href="registerPositiveTest.jsp">Register Test</a> </li>
+
+
+                <c:if test="${user.role=='ADMIN' || user.role=='CUSTOMER'}">
+                    <li><a href="Controller?command=Overview">Overview</a></li>
+                    <li><a href="Controller?command=ContactOverviewPersonal">Own Contacts</a> </li>
+                    <li><a href="registerPositiveTest.jsp">Register Test</a> </li>
+                </c:if>
+
+                <c:if test="${user.role=='ADMIN'}">
+                    <li><a href="Controller?command=ContactOverview">Contacts</a></li>
+                    <li><a href="Controller?command=Register">Register</a></li>
+                    <li><a href="delete.jsp">Delete</a> </li>
+                </c:if>
+
             </ul>
         </nav>
-        <h2>Home</h2>
-
     </header>
     <main>
+        <h2>Home</h2>
+        <c:if test="${notAutorized != null}">
+            <p class="alert-danger" ${notAutorized} </p>
+        </c:if>
         <c:choose>
             <c:when test="${not empty user}">
                     <p>Welkom, <c:out value="${user.firstName}"/>!</p>

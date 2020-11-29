@@ -1,6 +1,7 @@
 package ui.controller;
 
 import domain.model.Member;
+import domain.model.Role;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,9 @@ public class Overview extends RequestHandler {
 
     @Override
     public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Role[] roles = {Role.ADMIN, Role.CUSTOMER};
+        Utility.checkRole(request, roles);
+
         try {
             System.out.println("Overview");
             List<Member> members = service.getAll();
