@@ -23,7 +23,7 @@ public class MemberDBSQL implements MemberDB{
     @Override
     public void add(Member member) {
         if(member == null) throw new DbException("Nothing to add.");
-        String sql = String.format("INSERT INTO %s.person (userid, firstname, lastname, email, password) VALUES (?, ?, ?, ?, ?)", this.schema);
+        String sql = String.format("INSERT INTO %s.person (userid, firstname, lastname, email, password, role) VALUES (?, ?, ?, ?, ?, ?)", this.schema);
 
         try {
             PreparedStatement statementSQL = connection.prepareStatement(sql);
@@ -33,7 +33,7 @@ public class MemberDBSQL implements MemberDB{
             statementSQL.setString(3, member.getLastName());
             statementSQL.setString(4, member.getEmail());
             statementSQL.setString(5, member.getPassword());
-            //statementSQL.setObject(6, member.getRole());
+            statementSQL.setString(6, member.getRole().getStringValue());
 
             statementSQL.execute();
         } catch (SQLException e) {
@@ -56,9 +56,11 @@ public class MemberDBSQL implements MemberDB{
                 String lastname = result.getString("lastname");
                 String email = result.getString("email");
                 String password = result.getString("password");
+                String roleAsString = result.getString("role");
+                Role role = Role.valueOf(roleAsString.toUpperCase());
 
                 System.out.println("Gegevens binnenhalen");
-                Member member = new Member(userid, firstname, lastname, email, password);
+                Member member = new Member(userid, firstname, lastname, email, password, role);
                 members.add(member);
             }
         } catch (SQLException e) {
@@ -84,8 +86,10 @@ public class MemberDBSQL implements MemberDB{
             String lastname = result.getString("lastname");
             String email = result.getString("email");
             String password = result.getString("password");
+            String roleAsString = result.getString("role");
+            Role role = Role.valueOf(roleAsString.toUpperCase());
             System.out.println(password);
-            Member member = new Member(id, firstname, lastname, email, password);
+            Member member = new Member(id, firstname, lastname, email, password, role);
             System.out.println(member);
             return member;
         } catch (SQLException e) {

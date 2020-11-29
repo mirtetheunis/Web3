@@ -2,6 +2,7 @@ package ui.controller;
 
 import domain.db.DbException;
 import domain.model.Member;
+import domain.model.Role;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +24,7 @@ public class Add extends RequestHandler {
         setMemberLastName(member, request, errors);
         setMemberEmail(member, request, errors);
         setMemberPassword(member, request, errors);
+        setMemberRole(member, request, errors);
         System.out.println(errors);
         if (errors.size() == 0) {
             try {
@@ -38,6 +40,17 @@ public class Add extends RequestHandler {
             } catch (ServletException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void setMemberRole(Member member, HttpServletRequest request, List<String> errors) {
+        String roleAsString = request.getParameter("role").trim();
+        try {
+            Role role = Role.valueOf(roleAsString.toUpperCase());
+            member.setRole(role);
+            request.setAttribute("rolVorige", roleAsString);
+        } catch (Exception e) {
+            errors.add(e.getMessage());
         }
     }
 

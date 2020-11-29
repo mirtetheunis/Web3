@@ -49,6 +49,8 @@
                                                         required></p>
         <p><label for="password">Password</label><input type="password" id="password"  name="password" value="<c:out value="${passwordVorige}"/>"
                                                         required> </p>
+        <p><label for="role">Role</label><input type="text" id="role" name="role" value="<c:out value="${rolVorige}"/>"
+                                                        required></p>
         <p><input type="submit" id="signUp" value="Sign Up"></p>
 
     </form>
