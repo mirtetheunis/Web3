@@ -21,6 +21,7 @@
                 <li><a href="Controller?command=Register">Register</a></li>
                 <li><a href="delete.jsp">Delete</a> </li>
                 <li><a href="registerPositiveTest.jsp">Register Test</a> </li>
+                <li><a href="Controller?command=ContactOverviewPersonal">Own Contacts</a> </li>
             </ul>
         </nav>
     </header>

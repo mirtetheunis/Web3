@@ -53,6 +53,10 @@ public class ContactTracingService {
         return contactDB.get(id);
     }
 
+    public List<Contact> getAllContactsFromMember(String personid) {
+        return contactDB.getAllFromMember(personid);
+    }
+
     public void addTestResult(CoronaTestResult test) {
         testDB.add(test);
     }

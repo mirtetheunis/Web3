@@ -2,7 +2,6 @@ package ui.controller;
 
 import domain.db.DbException;
 import domain.model.Contact;
-import domain.model.DomainException;
 import domain.model.Member;
 
 import javax.servlet.ServletException;
@@ -13,7 +12,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddContact extends RequestHandler{
+public class AddOwnContact extends RequestHandler {
     @Override
     public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         List<String> errors = new ArrayList<>();
@@ -25,7 +24,7 @@ public class AddContact extends RequestHandler{
         setContactDate(contact, request, errors);
         setContactGsm(contact, request, errors);
         setContactEmail(contact, request, errors);
-        setContactPersonID(contact, request, errors);
+        setMemberID(contact, request, errors);
 
         if (errors.size() == 0) {
             try {
@@ -55,20 +54,20 @@ public class AddContact extends RequestHandler{
     }
 
     private void setContactFirstName(Contact contact, HttpServletRequest request, List<String> errors) {
-        String firstName = request.getParameter("firstName").trim();
+        Member m = (Member) request.getSession().getAttribute("user");
         try {
+            String firstName = m.getFirstName();
             contact.setFirstName(firstName);
-            request.setAttribute("voornaamVorige", firstName);
         } catch (Exception e) {
             errors.add(e.getMessage());
         }
     }
 
     private void setContactLastName(Contact contact, HttpServletRequest request, List<String> errors) {
-        String lastName = request.getParameter("lastName").trim();
+        Member m = (Member) request.getSession().getAttribute("user");
         try {
+            String lastName = m.getLastName();
             contact.setLastName(lastName);
-            request.setAttribute("naamVorige", lastName);
         } catch (Exception e) {
             errors.add(e.getMessage());
         }
@@ -98,29 +97,22 @@ public class AddContact extends RequestHandler{
     }
 
     private void setContactEmail(Contact contact, HttpServletRequest request, List<String> errors) {
-        String email = request.getParameter("email").trim();
+        Member m = (Member) request.getSession().getAttribute("user");
         try {
+            String email = m.getEmail();
             contact.setEmail(email);
-            request.setAttribute("emailVorige", email);
         } catch (Exception e) {
             errors.add(e.getMessage());
         }
     }
 
-    private void setContactPersonID(Contact contact, HttpServletRequest request, List<String> errors) {
-        List<Member> members = service.getAll();
-        String firstname = request.getParameter("firstName");
-        String lastname = request.getParameter("lastName");
-        for (Member m : members) {
-            if(m.getFirstName().equals(firstname) && m.getLastName().equals(lastname)) {
-                String userid = m.getUserid();
-                try {
-                    contact.setPersonid(userid);
-                } catch (Exception e) {
-                    errors.add(e.getMessage());
-                }
-            }
+    private void setMemberID(Contact contact, HttpServletRequest request, List<String> errors) {
+        Member m = (Member) request.getSession().getAttribute("user");
+        try {
+            String id = m.getUserid();
+            contact.setPersonid(id);
+        } catch (Exception e) {
+            errors.add(e.getMessage());
         }
     }
-
 }

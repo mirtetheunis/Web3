@@ -22,7 +22,7 @@ public class ContactDBSQL implements ContactDB{
     @Override
     public void add(Contact contact) {
         if(contact == null) throw new DbException("Nothing to add.");
-        String sql = String.format("INSERT INTO %s.contact (firstname, lastname, date, gsm, email) VALUES (?, ?, ?, ?, ?) RETURNING id", this.schema);
+        String sql = String.format("INSERT INTO %s.contact (firstname, lastname, date, gsm, email, personid) VALUES (?, ?, ?, ?, ?, ?) RETURNING id", this.schema);
 
         try {
             PreparedStatement statementSQL = connection.prepareStatement(sql);
@@ -31,6 +31,7 @@ public class ContactDBSQL implements ContactDB{
             statementSQL.setObject(3, contact.getDate());
             statementSQL.setString(4, contact.getPhonenumber());
             statementSQL.setString(5, contact.getEmail());
+            statementSQL.setString(6, contact.getPersonid());
             ResultSet result = statementSQL.executeQuery();
             result.next();
             contact.setId(result.getInt(1));
@@ -53,7 +54,8 @@ public class ContactDBSQL implements ContactDB{
                 Timestamp date = result.getObject("date", Timestamp.class);
                 String gsm = result.getString("gsm");
                 String email = result.getString("email");
-                Contact contact = new Contact(id, firstname, lastname, date, gsm, email);
+                String personid = result.getString("personid");
+                Contact contact = new Contact(id, firstname, lastname, date, gsm, email, personid);
                 contacts.add(contact);
             }
         } catch (SQLException e) {
@@ -76,7 +78,8 @@ public class ContactDBSQL implements ContactDB{
             Timestamp date = result.getObject("date", Timestamp.class);
             String gsm = result.getString("gsm");
             String email = result.getString("email");
-            Contact contact = new Contact(contactId, firstname, lastname, date, gsm, email);
+            String personid = result.getString("personid");
+            Contact contact = new Contact(contactId, firstname, lastname, date, gsm, email, personid);
             return contact;
         } catch (SQLException e) {
             throw new DbException(e.getMessage(), e);
@@ -93,5 +96,30 @@ public class ContactDBSQL implements ContactDB{
         } catch (SQLException e) {
             throw new DbException(e.getMessage(), e);
         }
+    }
+
+    @Override
+    public List<Contact> getAllFromMember(String personid) {
+        List<Contact> contacts = new ArrayList<>();
+        String sql = String.format("SELECT * FROM %s.contact WHERE personid = ?", this.schema);
+        try {
+            PreparedStatement statementSql = connection.prepareStatement(sql);
+            statementSql.setString(1, personid);
+            ResultSet result = statementSql.executeQuery();
+            while (result.next()) {
+                int id = result.getInt("id");
+                String firstname = result.getString("firstname");
+                String lastname = result.getString("lastname");
+                Timestamp date = result.getObject("date", Timestamp.class);
+                String gsm = result.getString("gsm");
+                String email = result.getString("email");
+                String personID = result.getString("personid");
+                Contact contact = new Contact(id, firstname, lastname, date, gsm, email, personID);
+                contacts.add(contact);
+            }
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage(), e);
+        }
+        return contacts;
     }
 }

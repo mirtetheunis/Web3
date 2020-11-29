@@ -12,4 +12,6 @@ public interface ContactDB {
     Contact get(String id);
 
     void delete(int id);
+
+    List<Contact> getAllFromMember(String personid);
 }

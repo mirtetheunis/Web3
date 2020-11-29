@@ -11,14 +11,16 @@ public class Contact {
     private String email;
     private String phonenumber;
     private Timestamp date;
+    private String personid;
 
-    public Contact(int id, String firstName, String lastName, Timestamp date, String phonenumber, String email) {
+    public Contact(int id, String firstName, String lastName, Timestamp date, String phonenumber, String email, String personid) {
         setId(id);
         setFirstName(firstName);
         setLastName(lastName);
         setDate(date);
         setPhonenumber(phonenumber);
         setEmail(email);
+        setPersonid(personid);
     }
 
     public Contact() {}
@@ -83,5 +85,14 @@ public class Contact {
 
     public void setDate(Timestamp date) {
         this.date = date;
+    }
+
+    public String getPersonid() {
+        return personid;
+    }
+
+    public void setPersonid(String personid) {
+        if(personid.isEmpty()) throw new IllegalArgumentException("Userid isn't correct.");
+        this.personid = personid;
     }
 }
