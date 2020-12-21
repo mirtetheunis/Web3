@@ -13,7 +13,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class RegisterTest {
 	private WebDriver driver;
-	private String path = "http://localhost:8080/Controller";
+	private String path = "http://localhost:8080/web3_project_mirtetheunis_war_exploded/Controller";
 	
 	@Before
 	public void setUp() {

@@ -43,7 +43,7 @@ public class ContactDBSQL implements ContactDB{
     @Override
     public List<Contact> getAll() {
         List<Contact> contacts = new ArrayList<>();
-        String sql = String.format("SELECT * FROM %s.contact", this.schema);
+        String sql = String.format("SELECT * FROM %s.contact ORDER BY date", this.schema);
         try {
             PreparedStatement statementSql = connection.prepareStatement(sql);
             ResultSet result = statementSql.executeQuery();
@@ -101,10 +101,63 @@ public class ContactDBSQL implements ContactDB{
     @Override
     public List<Contact> getAllFromMember(String personid) {
         List<Contact> contacts = new ArrayList<>();
-        String sql = String.format("SELECT * FROM %s.contact WHERE personid = ?", this.schema);
+        String sql = String.format("SELECT * FROM %s.contact WHERE personid = ? ORDER BY date", this.schema);
         try {
             PreparedStatement statementSql = connection.prepareStatement(sql);
             statementSql.setString(1, personid);
+            ResultSet result = statementSql.executeQuery();
+            while (result.next()) {
+                int id = result.getInt("id");
+                String firstname = result.getString("firstname");
+                String lastname = result.getString("lastname");
+                Timestamp date = result.getObject("date", Timestamp.class);
+                String gsm = result.getString("gsm");
+                String email = result.getString("email");
+                String personID = result.getString("personid");
+                Contact contact = new Contact(id, firstname, lastname, date, gsm, email, personID);
+                contacts.add(contact);
+            }
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage(), e);
+        }
+        return contacts;
+    }
+
+    @Override
+    public List<Contact> getAllContactsForDate(Timestamp from, Timestamp until) {
+        List<Contact> contacts = new ArrayList<>();
+        String sql = String.format("SELECT * FROM %s.contact WHERE date between ? and ? ORDER BY date", this.schema);
+        try {
+            PreparedStatement statementSql = connection.prepareStatement(sql);
+            statementSql.setTimestamp(1, from);
+            statementSql.setTimestamp(2, until);
+            ResultSet result = statementSql.executeQuery();
+            while (result.next()) {
+                int id = result.getInt("id");
+                String firstname = result.getString("firstname");
+                String lastname = result.getString("lastname");
+                Timestamp date = result.getObject("date", Timestamp.class);
+                String gsm = result.getString("gsm");
+                String email = result.getString("email");
+                String personID = result.getString("personid");
+                Contact contact = new Contact(id, firstname, lastname, date, gsm, email, personID);
+                contacts.add(contact);
+            }
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage(), e);
+        }
+        return contacts;
+    }
+
+    @Override
+    public List<Contact> getAllContactsForDateFromMember(String personid, Timestamp from, Timestamp until) {
+        List<Contact> contacts = new ArrayList<>();
+        String sql = String.format("SELECT * FROM %s.contact WHERE personid = ? AND date between ? and ? ORDER BY date", this.schema);
+        try {
+            PreparedStatement statementSql = connection.prepareStatement(sql);
+            statementSql.setString(1, personid);
+            statementSql.setTimestamp(2, from);
+            statementSql.setTimestamp(3, until);
             ResultSet result = statementSql.executeQuery();
             while (result.next()) {
                 int id = result.getInt("id");

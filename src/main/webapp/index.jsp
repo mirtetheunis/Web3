@@ -40,7 +40,7 @@
     <main>
         <h2>Home</h2>
         <c:if test="${notAutorized != null}">
-            <p class="alert-danger" ${notAutorized} </p>
+            <p class="alert-danger">${notAutorized} </p>
         </c:if>
         <c:choose>
             <c:when test="${not empty user}">

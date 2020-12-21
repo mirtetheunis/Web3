@@ -3,6 +3,7 @@ package ui.controller;
 import domain.service.ContactTracingService;
 import org.openqa.selenium.json.JsonOutput;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -10,7 +11,7 @@ import java.io.IOException;
 public abstract class RequestHandler {
     protected ContactTracingService service;
 
-    public abstract void handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException;
+    public abstract void handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException;
 
     public void setService(ContactTracingService contactTracingService) {
         System.out.println("setService");

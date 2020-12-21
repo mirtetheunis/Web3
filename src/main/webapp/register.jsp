@@ -50,15 +50,17 @@
     <form method="POST" action="Controller?command=Add" novalidate="novalidate">
         <!-- novalidate in order to be able to run tests correctly -->
         <p><label for="userid">User id</label><input type="text" id="userid" name="userid" value="<c:out value="${idVorige}"/>"
-                                                         required > </p>
+                                                         required pattern="^[a-zA-Z0-9-_.]{1,20}$"> </p>
         <p><label for="firstName">First Name</label><input type="text" id="firstName" name="firstName"
-                                                           required value="<c:out value="${voornaamVorige}"/>"> </p>
+                                                           required value="<c:out value="${voornaamVorige}"/>"
+                                                           pattern="^[a-zA-Z][a-zA-Z0-9-_.]{1,20}$"> </p>
         <p><label for="lastName">Last Name</label><input type="text" id="lastName" name="lastName" value="<c:out value="${naamVorige}"/>"
-                                                         required> </p>
+                                                         required pattern="^[a-zA-Z][a-zA-Z0-9-_.]{1,20}$"> </p>
         <p><label for="email">Email</label><input type="email" id="email" name="email" value="<c:out value="${emailVorige}"/>"
-                                                        required></p>
+                                                        required
+                                                  pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)(\.[A-Za-z]{2,})$"></p>
         <p><label for="password">Password</label><input type="password" id="password"  name="password" value="<c:out value="${passwordVorige}"/>"
-                                                        required> </p>
+                                                        required pattern="^[a-zA-Z][a-zA-Z0-9-_.]{1,20}$"> </p>
         <p><label for="role">Role</label><input type="text" id="role" name="role" value="<c:out value="${rolVorige}"/>"
                                                         required></p>
         <p><input type="submit" id="signUp" value="Sign Up"></p>
@@ -69,5 +71,86 @@
         &copy; Webontwikkeling 3, UC Leuven-Limburg
     </footer>
 </div>
+<script>
+    document.addEventListener("blur", checkField, false);
+    document.addEventListener("signUp", finalValidation, false);
+
+    function checkField(event) {
+        let error = hasError(event.target);
+        if(error) {
+            showError(event.target, error);
+        } else {
+            removeError(event.target);
+        }
+    }
+
+    function hasError(field) {
+        if(field.disabled || field.type == "file" || field.type == "submit") {
+            return;
+        }
+        let validity = field.validity;
+        if(validity == null || validity.valid) {
+            return;
+        }
+        if(validity.valueMissing) {
+            return "Vul veld in.";
+        }
+        if(validity.typeMismatch) {
+            return "Gebruik het juiste inputtype.";
+        }
+        if(validity.patternMismatch) {
+            if(field.type === "email") {
+                return "E-mail heeft niet de juiste vorm.";
+            }
+        }
+        return "Vul heel het formulier in alsjeblieft";
+    }
+
+    function removeError(field) {
+        if(field.classList != null && field.classList.length > 0) {
+            field.classList.remove("error");
+            let id = field.id;
+            let message = document.getElementById("error-for-" + id);
+            if(message != null) {
+                message.parentNode.removeChild(message);
+            }
+        }
+    }
+
+    function finalValidation(event) {
+        let fields = event.target.elements;
+        let error, hasErrors;
+        for(let i = 0; i < fields.length; i++) {
+            if(error) {
+                showError(fields[i], error);
+                if(!hasErrors) {
+                    hasErrors = fields[i];
+                }
+            }
+        }
+        if(hasErrors) {
+            event.preventDefault();
+            hasErrors.focus();
+        }
+    }
+
+    function showError(field, error) {
+        field.classList.add(error);
+        let id = field.id;
+        if(!id) {
+            return;
+        }
+        let message = document.getElementById("error-for-" + id);
+        if(!message) {
+            message = document.createElement("span");
+            message.className = "error";
+            message.id = "error-for-" + id;
+            field.parentNode.insertBefore(message, field.nextSibling);
+        }
+        message.innerHTML = error;
+    }
+
+</script>
 </body>
 </html>
+

@@ -14,7 +14,7 @@ import java.util.List;
 public class Add extends RequestHandler {
 
     @Override
-    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, NotAuthorizedException {
+    public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws IOException, NotAuthorizedException, ServletException {
         Role[] roles = {Role.ADMIN};
         Utility.checkRole(request, roles);
 
@@ -37,12 +37,9 @@ public class Add extends RequestHandler {
                 errors.add(e.getMessage());
             }
         } else {
-            try {
+
                 request.setAttribute("errors", errors);
                 request.getRequestDispatcher("Controller?command=Register").forward(request, response);
-            } catch (ServletException e) {
-                e.printStackTrace();
-            }
         }
     }
 

@@ -5,6 +5,7 @@ import domain.model.Contact;
 import domain.model.CoronaTestResult;
 import domain.model.Member;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -65,4 +66,11 @@ public class ContactTracingService {
 
     public CoronaTestResult getTestFromMember(String personid) {return testDB.getTest(personid);}
 
+    public List<Contact> getAllContactsForDate(Timestamp from, Timestamp until) {
+        return contactDB.getAllContactsForDate(from, until);
+    }
+
+    public List<Contact> getAllContactsForDateFromMember(String personid, Timestamp from, Timestamp until) {
+        return contactDB.getAllContactsForDateFromMember(personid, from, until);
+    }
 }

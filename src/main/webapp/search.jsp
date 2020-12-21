@@ -46,6 +46,7 @@
                 </ul>
             </div>
         </c:if>
+        You tested positive on <c:out value="${dateTest}"/>
         <table>
             <tr>
                 <th>Name</th>

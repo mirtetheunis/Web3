@@ -69,6 +69,18 @@
                 </ul>
             </div>
         </c:if>
+        <form method="post" action="Controller?command=GetContactsForDate" novalidate>
+            <p>
+                <label for="from">From</label>
+                <input type="date" id="from" name="from">
+                <label for="until">Until</label>
+                <input type="date" id="until" name="until">
+                <input type="submit" id="filter" value="Filter">
+            </p>
+        </form>
+        <form method="post" action="Controller?command=ContactOverview" novalidate>
+            <input type="submit" id="clear" value="Clear filter">
+        </form>
         <form method="POST" action="Controller?command=AddContact" novalidate="novalidate">
             <!-- novalidate in order to be able to run tests correctly -->
             <p><label for="firstName">First Name</label><input type="text" id="firstName" name="firstName"

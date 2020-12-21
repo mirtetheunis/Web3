@@ -45,6 +45,7 @@ public class Search extends RequestHandler  {
         if (errors.size() == 0) {
             try {
                 request.setAttribute("contacts", contactsSincePositive);
+                request.setAttribute("dateTest", test.getDate());
                 request.getRequestDispatcher("search.jsp").forward(request, response);
             } catch (DbException | ServletException e) {
                 errors.add(e.getMessage());
