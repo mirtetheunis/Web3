@@ -37,6 +37,12 @@
             Member Overview
         </h2>
 
+        <c:if test="${gelukt != null}">
+            <div class="alert-feedback">
+                <p>${gelukt}</p>
+            </div>
+        </c:if>
+
     </header><main>
     <table>
         <tr>

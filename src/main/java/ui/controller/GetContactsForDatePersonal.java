@@ -25,6 +25,8 @@ public class GetContactsForDatePersonal extends RequestHandler{
             Timestamp until = Timestamp.valueOf(untilAsString + " 00:00:00");
             String personid = m.getUserid();
             List<Contact> contacts = service.getAllContactsForDateFromMember(personid, from, until);
+            String gelukt = "Contacts are filtered.";
+            request.setAttribute("gelukt", gelukt);
             request.setAttribute("contacts", contacts);
             request.getRequestDispatcher("contactsPersonal.jsp").forward(request, response);
         } catch (ServletException e) {

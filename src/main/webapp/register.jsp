@@ -58,9 +58,9 @@
                                                          required pattern="^[a-zA-Z][a-zA-Z0-9-_.]{1,20}$"> </p>
         <p><label for="email">Email</label><input type="email" id="email" name="email" value="<c:out value="${emailVorige}"/>"
                                                         required
-                                                  pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)(\.[A-Za-z]{2,})$"></p>
+                                                  pattern ="^[A-Za-z0-9+_.-]+@(.+)$"></p>
         <p><label for="password">Password</label><input type="password" id="password"  name="password" value="<c:out value="${passwordVorige}"/>"
-                                                        required pattern="^[a-zA-Z][a-zA-Z0-9-_.]{1,20}$"> </p>
+                                                        required pattern="^[a-zA-Z][a-zA-Z0-9-_.]{3,20}$"> </p>
         <p><label for="role">Role</label><input type="text" id="role" name="role" value="<c:out value="${rolVorige}"/>"
                                                         required></p>
         <p><input type="submit" id="signUp" value="Sign Up"></p>
@@ -72,76 +72,93 @@
     </footer>
 </div>
 <script>
-    document.addEventListener("blur", checkField, false);
-    document.addEventListener("signUp", finalValidation, false);
+    window.addEventListener("load", initPage, false);
 
-    function checkField(event) {
-        let error = hasError(event.target);
-        if(error) {
-            showError(event.target, error);
-        } else {
-            removeError(event.target);
-        }
-    }
+    function initPage() {
 
-    function hasError(field) {
-        if(field.disabled || field.type == "file" || field.type == "submit") {
-            return;
-        }
-        let validity = field.validity;
-        if(validity == null || validity.valid) {
-            return;
-        }
-        if(validity.valueMissing) {
-            return "Vul veld in.";
-        }
-        if(validity.typeMismatch) {
-            return "Gebruik het juiste inputtype.";
-        }
-        if(validity.patternMismatch) {
-            if(field.type === "email") {
-                return "E-mail heeft niet de juiste vorm.";
-            }
-        }
-        return "Vul heel het formulier in alsjeblieft";
-    }
+        document.addEventListener("blur", checkField, true);
 
-    function removeError(field) {
-        if(field.classList != null && field.classList.length > 0) {
-            field.classList.remove("error");
-            let id = field.id;
-            let message = document.getElementById("error-for-" + id);
-            if(message != null) {
-                message.parentNode.removeChild(message);
-            }
-        }
+        document.addEventListener("submit", finalValidation, false);
     }
 
     function finalValidation(event) {
         let fields = event.target.elements;
         let error, hasErrors;
-        for(let i = 0; i < fields.length; i++) {
-            if(error) {
+        for (let i = 0; i < fields.length; i++) {
+            error = hasError(fields[i]);
+            if (error) {
                 showError(fields[i], error);
-                if(!hasErrors) {
+                if (!hasErrors) {
                     hasErrors = fields[i];
                 }
             }
+
         }
-        if(hasErrors) {
+
+        if (hasErrors) {
             event.preventDefault();
             hasErrors.focus();
+        }
+
+    }
+
+    function checkField(event) {
+        let error = hasError(event.target);
+        if (error)
+            showError(event.target, error);
+        else
+            removeError(event.target);
+    }
+
+    function hasError(field) {
+        if (field.disabled || field.type === "file" || field.type === "submit")
+            return;
+
+        let validity = field.validity;
+        if (validity == null || validity.valid) {
+            return;
+        }
+
+        if (validity.valueMissing) {
+            return "Please fill out a value";
+        }
+        if (validity.typeMismatch) {
+            return "Please use the correct input type";
+        }
+        if (validity.patternMismatch) {
+            if (field.type === "email") {
+                return "This is not a valid email.";
+            }
+            if (field.type === "tel") {
+                return "This is not a valid phonenumber."
+            }
+            if (field.type === "password") {
+                return "Password is not long enough."
+            }
+            if (field.type === "text") {
+                return "Input isn't long enough."
+            }
+        }
+        return "Please complete the form correct";
+    }
+
+    function removeError(field) {
+        if (field.classList != null && field.classList.length > 0) {
+            field.classList.remove("error");
+            let id = field.id;
+            let message = document.getElementById("error-for-" + id);
+            if (message != null)
+                message.parentNode.removeChild(message);
         }
     }
 
     function showError(field, error) {
-        field.classList.add(error);
+        field.classList.add("error");
         let id = field.id;
-        if(!id) {
+        if (!id)
             return;
-        }
         let message = document.getElementById("error-for-" + id);
-        if(!message) {
+        if (!message) {
             message = document.createElement("span");
             message.className = "error";
             message.id = "error-for-" + id;

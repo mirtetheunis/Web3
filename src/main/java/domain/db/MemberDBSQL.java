@@ -45,7 +45,7 @@ public class MemberDBSQL implements MemberDB{
     public List<Member> getAll() {
         System.out.println("MemberDBSQL getAll");
         List<Member> members = new ArrayList<>();
-        String sql = String.format("SELECT * FROM %s.person", this.schema);
+        String sql = String.format("SELECT * FROM %s.person ORDER BY userid", this.schema);
         try {
             PreparedStatement statementSql = connection.prepareStatement(sql);
             System.out.println("PreparedStatement");

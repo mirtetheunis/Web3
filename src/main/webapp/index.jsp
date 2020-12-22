@@ -42,6 +42,13 @@
         <c:if test="${notAutorized != null}">
             <p class="alert-danger">${notAutorized} </p>
         </c:if>
+
+        <c:if test="${gelukt != null}">
+            <div class="alert-feedback">
+                <p>${gelukt}</p>
+            </div>
+        </c:if>
+
         <c:choose>
             <c:when test="${not empty user}">
                     <p>Welkom, <c:out value="${user.firstName}"/>!</p>

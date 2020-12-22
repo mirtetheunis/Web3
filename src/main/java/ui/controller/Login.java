@@ -24,6 +24,8 @@ public class Login extends RequestHandler {
                 System.out.println("Ww checken");
                 HttpSession session = request.getSession();
                 session.setAttribute("user", member);
+                String gelukt = "Successfully logged in.";
+                request.setAttribute("gelukt", gelukt);
             } else {
                 request.setAttribute("fout", "Het wachtwoord is fout");
                 request.setAttribute("userIdPrevious", userId);

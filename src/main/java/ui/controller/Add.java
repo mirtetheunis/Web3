@@ -32,12 +32,14 @@ public class Add extends RequestHandler {
         if (errors.size() == 0) {
             try {
                 service.add(member);
-                response.sendRedirect("Controller?command=Overview");
+                String gelukt = "Member succesfully registered.";
+                request.setAttribute("gelukt", gelukt);
+                request.getRequestDispatcher("Controller?command=Overview").forward(request, response);
+                //response.sendRedirect("Controller?command=Overview");
             } catch (DbException e) {
                 errors.add(e.getMessage());
             }
         } else {
-
                 request.setAttribute("errors", errors);
                 request.getRequestDispatcher("Controller?command=Register").forward(request, response);
         }

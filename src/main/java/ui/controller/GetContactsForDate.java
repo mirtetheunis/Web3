@@ -22,6 +22,8 @@ public class GetContactsForDate extends RequestHandler{
             Timestamp from = Timestamp.valueOf(fromAsString + " 00:00:00");
             Timestamp until = Timestamp.valueOf(untilAsString + " 00:00:00");
             List<Contact> contacts = service.getAllContactsForDate(from, until);
+            String gelukt = "Contacts are filtered.";
+            request.setAttribute("gelukt", gelukt);
             request.setAttribute("contacts", contacts);
             request.getRequestDispatcher("contacts.jsp").forward(request, response);
         } catch (ServletException e) {

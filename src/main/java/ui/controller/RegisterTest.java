@@ -26,8 +26,11 @@ public class RegisterTest extends RequestHandler {
         if (errors.size() == 0) {
             try {
                 service.addTestResult(test);
-                response.sendRedirect("Controller?command=ContactOverviewPersonal");
-            } catch (DbException e) {
+                String gelukt = "Test successfully registered.";
+                request.setAttribute("gelukt", gelukt);
+                request.getRequestDispatcher("Controller?command=ContactOverviewPersonal").forward(request, response);
+                //response.sendRedirect("Controller?command=ContactOverviewPersonal");
+            } catch (DbException | ServletException e) {
                 errors.add(e.getMessage());
             }
         } else {

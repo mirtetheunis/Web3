@@ -35,8 +35,10 @@ public class AddContact extends RequestHandler{
             try {
                 service.addContact(contact);
                 clearPreviousValues(request);
-                response.sendRedirect("Controller?command=ContactOverview");
-            } catch (DbException e) {
+                String gelukt = "Contact succesfully registered.";
+                request.setAttribute("gelukt", gelukt);
+                request.getRequestDispatcher("Controller?command=ContactOverview").forward(request, response);
+            } catch (DbException | ServletException e) {
                 errors.add(e.getMessage());
             }
         } else {

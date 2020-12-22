@@ -35,9 +35,17 @@
         </nav>
     </header>
     <main>
+
+        <c:if test="${gelukt != null}">
+            <div class="alert-feedback">
+                <p>${gelukt}</p>
+            </div>
+        </c:if>
+
         <h2>
             My Contacts Overview
         </h2>
+
         <table>
             <tr>
                 <th>Date</th>
@@ -50,7 +58,7 @@
                     <td><fmt:formatDate pattern="yyyy-MM-dd" value="${contact.date}"/></td>
                     <td><fmt:formatDate pattern="HH:mm" value="${contact.date}"/></td>
                     <td><c:out value="${contact.firstName} ${contact.lastName}"/></td>
-                    <td><a href="Controller?command=DeleteContact&firstName=${contact.firstName}&lastName=${contact.lastName}&date=${contact.date}">Delete</a></td>
+                    <td><a href="Controller?command=DeleteContactMember&firstName=${contact.firstName}&lastName=${contact.lastName}&date=${contact.date}">Delete</a></td>
                 </tr>
             </c:forEach>
             <caption>Contact Overview</caption>
@@ -69,6 +77,7 @@
                 </ul>
             </div>
         </c:if>
+
         <form method="post" action="Controller?command=GetContactsForDatePersonal" novalidate>
             <p>
                 <label for="from">From</label>
