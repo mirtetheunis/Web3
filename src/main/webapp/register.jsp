@@ -136,7 +136,7 @@
                 return "Password is not long enough."
             }
             if (field.type === "text") {
-                return "Input isn't long enough."
+                return "Input isn't correct."
             }
         }
         return "Please complete the form correct";

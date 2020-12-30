@@ -50,13 +50,110 @@
 
                 <form method="POST" action="Controller?command=Find" novalidate="novalidate">
                     <p><label for="date">Date</label><input type="text" id="date" name="date" placeholder="YYYY-mm-dd"
-                                                            required > </p>
+                                                            required pattern ="[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])"> </p>
                     <p><label for="hour">Hour</label><input type="text" id="hour"  name="hour" placeholder="hh:mm"
-                                                            required> </p>
+                                                            required pattern ="(2[0-3]|[01][0-9]):[0-5][0-9]"> </p>
                     <p><input type="submit" id="signUp" value="Find"></p>
                 </form>
     </main>
 </div>
+<script>
+    window.addEventListener("load", initPage, false);
+
+    function initPage() {
+
+        document.addEventListener("blur", checkField, true);
+
+        document.addEventListener("submit", finalValidation, false);
+    }
+
+    function finalValidation(event) {
+        let fields = event.target.elements;
+        let error, hasErrors;
+        for (let i = 0; i < fields.length; i++) {
+            error = hasError(fields[i]);
+            if (error) {
+                showError(fields[i], error);
+                if (!hasErrors) {
+                    hasErrors = fields[i];
+                }
+            }
+
+        }
+
+        if (hasErrors) {
+            event.preventDefault();
+            hasErrors.focus();
+        }
+
+    }
+
+    function checkField(event) {
+        let error = hasError(event.target);
+        if (error)
+            showError(event.target, error);
+        else
+            removeError(event.target);
+    }
+
+    function hasError(field) {
+        if (field.disabled || field.type === "file" || field.type === "submit")
+            return;
+
+        let validity = field.validity;
+        if (validity == null || validity.valid) {
+            return;
+        }
+
+        if (validity.valueMissing) {
+            return "Please fill out a value";
+        }
+        if (validity.typeMismatch) {
+            return "Please use the correct input type";
+        }
+        if (validity.patternMismatch) {
+            if (field.type === "email") {
+                return "This is not a valid email.";
+            }
+            if (field.type === "tel") {
+                return "This is not a valid phonenumber."
+            }
+            if (field.type === "password") {
+                return "Password is not long enough."
+            }
+            if (field.type === "text") {
+                return "Input isn't correct."
+            }
+        }
+        return "Please complete the form correct";
+    }
+
+    function removeError(field) {
+        if (field.classList != null && field.classList.length > 0) {
+            field.classList.remove("error");
+            let id = field.id;
+            let message = document.getElementById("error-for-" + id);
+            if (message != null)
+                message.parentNode.removeChild(message);
+        }
+    }
+
+    function showError(field, error) {
+        field.classList.add("error");
+        let id = field.id;
+        if (!id)
+            return;
+        let message = document.getElementById("error-for-" + id);
+        if (!message) {
+            message = document.createElement("span");
+            message.className = "error";
+            message.id = "error-for-" + id;
+            field.parentNode.insertBefore(message, field.nextSibling);
+        }
+        message.innerHTML = error;
+    }
+
+</script>
 
 </body>
 </html>
