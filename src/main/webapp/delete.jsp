@@ -20,15 +20,15 @@
                 <c:if test="${user.role=='ADMIN' || user.role=='CUSTOMER'}">
                     <li><a href="Controller?command=Overview">Overview</a></li>
                     <li><a href="Controller?command=ContactOverviewPersonal">Own Contacts</a> </li>
-                    <li><a href="registerPositiveTest.jsp">Register Test</a> </li>
+                    <li><a href="Controller?command=OPEN_registertest">Register Test</a> </li>
                     <li><a href="Controller?command=Search">Search</a> </li>
-                    <li><a href="Controller?command=Find">Find</a> </li>
+                    <li><a href="Controller?command=OPEN_find">Find</a> </li>
                 </c:if>
 
                 <c:if test="${user.role=='ADMIN'}">
                     <li><a href="Controller?command=ContactOverview">Contacts</a></li>
                     <li><a href="Controller?command=Register">Register</a></li>
-                    <li id="actual"><a href="delete.jsp">Delete</a> </li>
+                    <li id="actual"><a href="Controller?command=OPEN_delete">Delete</a> </li>
                 </c:if>
 
             </ul>

@@ -20,7 +20,7 @@ public class RegisterTest {
 		//System.setProperty("webdriver.chrome.driver", "/Users/.../web3pers/chromedriver");
 			// windows: gebruik dubbele \\ om pad aan te geven
 			// hint: zoek een werkende test op van web 2 ...
-		System.setProperty("webdriver.chrome.driver", "C:\\Users\\mirte\\OneDrive\\Documenten\\Lessen\\Semester 2\\Web2\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\mirte\\OneDrive\\Documenten\\Lessen\\Semester 3\\Web3\\chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.get(path+"?command=Register");
 	}
