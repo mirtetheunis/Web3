@@ -51,6 +51,7 @@
             <th>Date</th>
             <th>Hour</th>
             <th>Name</th>
+            <th>Member id</th>
             <th>Delete</th>
         </tr>
         <c:forEach var="contact" items="${contacts}">
@@ -58,6 +59,7 @@
                 <td><fmt:formatDate pattern="yyyy-MM-dd" value="${contact.date}"/></td>
                 <td><fmt:formatDate pattern="HH:mm" value="${contact.date}"/></td>
                 <td><c:out value="${contact.firstName} ${contact.lastName}"/></td>
+                <td><c:out value="${contact.personid}"/></td>
                 <td><a href="Controller?command=DeleteContact&firstName=${contact.firstName}&lastName=${contact.lastName}&date=${contact.date}">Delete</a></td>
             </tr>
         </c:forEach>
@@ -83,7 +85,10 @@
                 <label for="from">From</label>
                 <input type="date" id="from" name="from">
                 <label for="until">Until</label>
-                <input type="date" id="until" name="until">
+                <input type="date" id="until" name="until"> </p>
+            <p>
+                <label for="member">Member</label>
+                <input type="text" id="member" name="member" placeholder="Member id or empty">
                 <input type="submit" id="filter" value="Filter">
             </p>
         </form>
