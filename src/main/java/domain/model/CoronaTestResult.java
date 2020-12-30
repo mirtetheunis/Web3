@@ -1,7 +1,6 @@
 package domain.model;
 
 public class CoronaTestResult {
-    private int id;
     private String date;
     private String personid;
 
@@ -9,18 +8,9 @@ public class CoronaTestResult {
         setDate(date);
     }
     public CoronaTestResult() {};
-    public CoronaTestResult(int id, String date, String personid) {
-        setId(id);
+    public CoronaTestResult(String date, String personid) {
         setDate(date);
         setPersonid(personid);
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getDate() {
