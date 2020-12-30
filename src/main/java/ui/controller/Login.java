@@ -27,11 +27,11 @@ public class Login extends RequestHandler {
                 String gelukt = "Successfully logged in.";
                 request.setAttribute("gelukt", gelukt);
             } else {
-                request.setAttribute("fout", "Het wachtwoord is fout");
+                request.setAttribute("fout", "Password is not correct.");
                 request.setAttribute("userIdPrevious", userId);
             }
         } catch (DbException e) {
-            request.setAttribute("fout", "User id bestaat niet");
+            request.setAttribute("fout", "User id doesn't exist.");
         }
         try {
             request.getRequestDispatcher("index.jsp").forward(request, response);
